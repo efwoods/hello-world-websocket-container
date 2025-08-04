@@ -1,13 +1,18 @@
 from fastapi import FastAPI, WebSocket
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(
+    title="Real-Time Whisper Transcription Service",
+    root_path="/hello-world",
+)
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     await websocket.send_text("Hello World from WebSocket!")
     await websocket.close()
+
 
 @app.get("/")
 async def root():
